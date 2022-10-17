@@ -1,14 +1,8 @@
 package com.homework.webapi;
 
-import java.time.LocalDate;
-
-public class Transaction {
-    public int transId;
+public class AccountRewards {
     private String accountId;
-    public double amount;
-    public LocalDate transDate;
-    public int rewardsPoints;
-
+    private int rewards;
 
     public String getAccountId()
     {
@@ -18,5 +12,15 @@ public class Transaction {
     public void setAccountId(String newAccountId)
     {
         this.accountId = newAccountId;
+    }
+
+    public int getRewards()
+    {
+        return rewards;
+    }
+
+    public void setRewards(int newRewards)
+    {
+        this.rewards = newRewards;
     }
 }

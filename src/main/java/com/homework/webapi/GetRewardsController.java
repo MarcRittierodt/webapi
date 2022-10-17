@@ -2,13 +2,10 @@ package com.homework.webapi;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,11 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class GetRewardsController {
     
     @GetMapping("/getrewards")
-    public List<Transaction> getRewards()
+    public List<AccountRewards> getRewards()
     {
      
         LocalDate baseDate = LocalDate.now().minusMonths(3);
         DataAccess dataAccess = new DataAccess();
+        List<AccountRewards> accountRewards = new ArrayList<AccountRewards>();
         List<Transaction> transactions = dataAccess.getTransactions();
         
         Iterator<Transaction> courseIterator = transactions.iterator();
@@ -32,24 +30,32 @@ public class GetRewardsController {
             }
         }
 
-        List<Transaction> distinctAccounts = transactions.stream()
-                                                .filter(distinctByKey(t -> t.accountId))
-                                                .collect(Collectors.toList());
-        for (Transaction accounts: distinctAccounts)
+
+        Set<String> accountIds = new HashSet<>();
+        for(final Transaction t: transactions) {
+
+            accountIds.add(t.getAccountId());
+        } 
+
+        for (String accoundId: accountIds)
         {
+            AccountRewards accountReward = new AccountRewards();
+            accountReward.setAccountId(accoundId);
         for (Transaction t: transactions)
         {
             if (t.transDate.isAfter(baseDate))
             {
-            if (accounts.accountId == t.accountId)
+            if (accoundId == t.getAccountId())
             {
             if (t.amount > 50 && t.amount <= 100)
             {
-                t.rewardsPoints = t.rewardsPoints + (int)t.amount - 50;
+               // t.rewardsPoints = t.rewardsPoints + (int)t.amount - 50;
+               accountReward.setRewards(accountReward.getRewards() + (int)t.amount - 50);
             }
             else if (t.amount > 100)
             {
-                t.rewardsPoints = t.rewardsPoints + (((int)t.amount - 100) * 2) + 50;
+               // t.rewardsPoints = t.rewardsPoints + (((int)t.amount - 100) * 2) + 50;
+               accountReward.setRewards(accountReward.getRewards() + (((int)t.amount - 100) * 2) + 50);
             }
         }
         }
@@ -59,13 +65,10 @@ public class GetRewardsController {
         }
         
     }
+    accountRewards.add(accountReward);
         }
     
-        return transactions;
-    }
-
-    private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
-        Set<Object> seen = ConcurrentHashMap.newKeySet();
-        return t -> seen.add(keyExtractor.apply(t));
+        return accountRewards;
     }
 }
+    
