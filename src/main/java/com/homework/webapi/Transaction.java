@@ -9,14 +9,11 @@ public class Transaction {
     public LocalDate transDate;
     public int rewardsPoints;
 
-
-    public String getAccountId()
-    {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(String newAccountId)
-    {
+    public void setAccountId(String newAccountId) {
         this.accountId = newAccountId;
     }
 }

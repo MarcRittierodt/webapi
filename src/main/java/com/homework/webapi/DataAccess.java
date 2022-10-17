@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataAccess {
-    public List<Transaction> getTransactions()
-    {
+    public List<Transaction> getTransactions() {
         List<Transaction> transactions = new ArrayList<Transaction>();
         Transaction trans = new Transaction();
         trans.transId = 100;
@@ -43,4 +42,3 @@ public class DataAccess {
         return transactions;
     }
 }
-

@@ -4,23 +4,19 @@ public class AccountRewards {
     private String accountId;
     private int rewards;
 
-    public String getAccountId()
-    {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(String newAccountId)
-    {
+    public void setAccountId(String newAccountId) {
         this.accountId = newAccountId;
     }
 
-    public int getRewards()
-    {
+    public int getRewards() {
         return rewards;
     }
 
-    public void setRewards(int newRewards)
-    {
+    public void setRewards(int newRewards) {
         this.rewards = newRewards;
     }
 }
