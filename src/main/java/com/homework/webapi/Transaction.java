@@ -7,7 +7,6 @@ public class Transaction {
     private String accountId;
     public double amount;
     public LocalDate transDate;
-    public int rewardsPoints;
 
     public String getAccountId() {
         return accountId;
