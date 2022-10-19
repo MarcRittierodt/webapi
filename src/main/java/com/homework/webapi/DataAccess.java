@@ -35,6 +35,7 @@ public class DataAccess {
         trans4.transDate = LocalDate.parse("2022-06-27");
         transactions.add(trans4);
 
+        //One transaction out of the three month window to make sure filtering works.
         Transaction trans5 = new Transaction();
         trans5.transId = 104;
         trans5.setAccountId("12345");
