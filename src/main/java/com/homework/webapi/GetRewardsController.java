@@ -15,6 +15,7 @@ public class GetRewardsController {
 
     @GetMapping("/getrewards")
     public List<AccountRewards> getRewards() {
+        
         // Only transactions over the last three months
         LocalDate baseDate = LocalDate.now().minusMonths(3);
         DataAccess dataAccess = new DataAccess();
